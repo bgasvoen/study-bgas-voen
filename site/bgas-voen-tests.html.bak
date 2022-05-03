@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Военная академия БГАСа — Bgas-Voen</title>
+    <meta name="description" content="">
+    <meta property="og:title" content="Военная академия БГАСа — Bgas-Voen"
+    />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="http://c04022c4294ae55f.staronka.by/images/"
+    />
+    <meta property="og:url" content="http://c04022c4294ae55f.staronka.by/bgas-voen-tests"
+    />
+    <meta property="og:type" content="website" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="canonical" href="bgas-voen-tests.html"
+    />
+    <!-- Расширения сайта -->
+    <!-- Загружаем внешние стили -->
+    <link href="lib/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/vendor/blueimp-gallery/css/blueimp-gallery.min.css" rel="stylesheet">
+    <link href="lib/vendor/bootstrapValidator/bootstrapValidator.min.css"
+    rel="stylesheet">
+    <!-- Загружаем уникальные стили для сайта -->
+    <link href="style.css@1651258604576.css" rel="stylesheet">
+    <!-- А теперь загружаем кое-какие сценарии для правильной работы сайта
+    -->
+    <script src="scripts.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements
+    and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  
+  <body class="text-body staronka
+      
+    
+  ">
+    <!-- Меню -->
+    <div class="navbar navbar-default " role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">Показать навигацию</span>
+ <span class="icon-bar"></span>
+
+            <span
+            class="icon-bar"></span> <span class="icon-bar"></span>
+
+          </button> <a class="navbar-brand text-header simple-text" href="http://c04022c4294ae55f.staronka.by/">
+            <p>Логотип</p>
+        </a>
+
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li> <a href="index.html#smoothheader">
+                  Главная
+                </a>
+
+            </li>
+            <li> <a href="bgas-voen-theory.html#smoothsection-bgas-voen-theory-28250791435269120">
+                  Теория
+                </a>
+
+            </li>
+            <li> <a href="http://bsac.by/" target="_blank">
+                  Сайт академи связи
+                </a>
+
+            </li>
+          </ul>
+        </div>
+        <!--/.nav-collapse -->
+      </div>
+    </div>
+    <!-- Раздел section-bgas-voen-tests-13008195359172858 -->
+    <section id="section-bgas-voen-tests-13008195359172858" class="
+          features-1
+          features
+          
+          
+          padding-top-md
+          padding-bottom-md
+        " style="
+          background-color: #FFFFFF;
+          
+        ">
+      <div class="background background-image  " style="opacity: 1;    ">&nbsp;</div>
+      <!-- Казуальный контейнер -->
+      <div class="container ">
+        <div class="row">
+          <div class="container-title text-center">
+             <h1 class="text-header">Тесты по оборудованию</h1>
+
+          </div>
+        </div>
+        <div class="row features-block">
+          <div class="grid">
+            <div class="grid-item
+                      
+                      col-xs-12 col-sm-4
+                      
+                      
+                      
+                    ">
+              <div class="card">
+                <div class="feature-no ">
+                   <h3 class="text-header">Orion-2</h3>
+
+                  <p>
+                    <p>Тест представленный ввиде вопросов со множеством ответов, который должен
+                      помочь закрепить знания и понимание работы оборудования -&nbsp;</p>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="grid-item
+                      
+                      col-xs-12 col-sm-4
+                      
+                      
+                      
+                    ">
+              <div class="card">
+                <div class="feature-no ">
+                   <h3 class="text-header">Оборудование 2</h3>
+
+                  <p>
+                    <p>Тест представленный ввиде вопросов со множеством ответов, который должен
+                      помочь закрепить знания и понимание работы оборудования -</p>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="grid-item
+                      
+                      col-xs-12 col-sm-4
+                      
+                      
+                      
+                    ">
+              <div class="card">
+                <div class="feature-no ">
+                   <h3 class="text-header">Оборудование 3</h3>
+
+                  <p>
+                    <p>Тест представленный ввиде вопросов со множеством ответов, который должен
+                      помочь закрепить знания и понимание работы оборудования -</p>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="grid-item
+                      
+                      col-xs-12 col-sm-4
+                      
+                      
+                      
+                    ">
+              <div class="card">
+                <div class="feature-no ">
+                   <h3 class="text-header">Оборудование 4</h3>
+
+                  <p>
+                    <p>Тест представленный ввиде вопросов со множеством ответов, который должен
+                      помочь закрепить знания и понимание работы оборудования -</p>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="grid-item
+                      
+                      col-xs-12 col-sm-4
+                      
+                      
+                      
+                    ">
+              <div class="card">
+                <div class="feature-no ">
+                   <h3 class="text-header">Оборудование 5</h3>
+
+                  <p>
+                    <p>Тест представленный ввиде вопросов со множеством ответов, который должен
+                      помочь закрепить знания и понимание работы оборудования -</p>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="grid-item
+                      
+                      col-xs-12 col-sm-4
+                      
+                      
+                      
+                    ">
+              <div class="card">
+                <div class="feature-no ">
+                   <h3 class="text-header">Оборудование 6</h3>
+
+                  <p>
+                    <p>Тест представленный ввиде вопросов со множеством ответов, который должен
+                      помочь закрепить знания и понимание работы оборудования -</p>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+        <div class="branding-wrapper"> <a href="http://staronka.by/?utm_source=client&utm_medium=link&utm_campaign="
+          rel="technicalauthor" title="Старонка — бесплатный конструтор сайтов для бизнеса где вы можете создать сайт самостоятельно или заказать у профессионального дизайнера."
+          target="_blank"><div class="branding"></div></a>
+
+        </div>
+      </div>
+    </section>
+    <!-- Дополнительные блоки -->
+    <div id="blueimp-gallery" class="blueimp-gallery  blueimp-gallery-controls">
+      <div class="slides"></div>
+       <h3 class="title"></h3>
+ <a class="prev">‹</a>
+ <a class="next">›</a>
+ <a class="close">×</a>
+ <a class="play-pause"></a>
+
+      <ol
+      class="indicator"></ol>
+    </div>
+    <!-- Расширения сайта -->
+    <!-- Считаем посетителей сайта -->
+    <script type="text/javascript">
+      var _paq = _paq || [];
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u=(("https:" == document.location.protocol) ? "https" : "http") + "://stats.staronka.by/";
+        _paq.push(['setTrackerUrl', u+'piwik.php']);
+        _paq.push(['setSiteId', 16476]);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';
+        g.defer=true; g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    <!-- Если у посетителя отключен JavaScript то его мы тоже посчитаем
+    -->
+    <noscript>
+      <p>
+        <img src="http://stats.staronka.by/piwik.php?idsite=16476" style="border:0;"
+        alt="" />
+      </p>
+    </noscript>
+    <!-- Библиотеки -->
+    <script src="lib/vendor/jquery/jquery.min.js"></script>
+    <script src="lib/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="lib/vendor/blueimp-gallery/js/jquery.blueimp-gallery.min.js"></script>
+    <script src="lib/vendor/jquery.smooth-scroll/jquery.smooth-scroll.min.js"></script>
+    <script src="lib/vendor/bootstrapValidator/bootstrapValidator.min.js"></script>
+    <script src="lib/vendor/viewport-units-buggyfill/viewport-units-buggyfill.js"></script>
+    <script src="lib/vendor/menavita/mnvt.bundle.js@menu"></script>
+    <script src="lib/vendor/jarallax/jarallax.min.js"></script>
+    <!-- Модальные окна -->
+    <div class="modal fade" id="modal-order" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+      <div class="modal-dialog modal-md">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+             <h4 class="modal-title text-header" id="myModalLabel">Заказ</h4>
+
+          </div>
+          <div class="modal-body signup-form">
+            <form id="modalform-order" role="form">
+              <input type="hidden" name="suid" value="c04022c4294ae55f">
+              <input type="hidden" name="form" value="order">
+              <div class="form-group">
+                <label for="field-0">Имя</label>
+                <input id="field-0" name="field-0" type="text" class="form-control"
+                placeholder="Фамилия и имя" required>
+              </div>
+              <div class="form-group">
+                <label for="field-1">Электронная почта</label>
+                <input id="field-1" name="field-1" type="text"
+                class="form-control" placeholder="Ваш адрес" required>
+              </div>
+              <div class="form-group">
+                <label for="field-2">Информация</label>
+                <textarea id="field-2" name="field-2" class="form-control"
+                placeholder="Ваш заказ" rows="3" required></textarea>
+              </div>
+              <!-- Добавляем защиту от ботов -->
+              <div style="position: absolute; left: -6000px;" aria-hidden="true">
+                <input type="text" name="order" tabindex="-1" value="">
+              </div>
+              <div class="modal-footer">
+                <div class="col-xs-6">
+                  <button type="button" class="btn btn-md pull-left btn-default" data-dismiss="modal">Отмена</button>
+                </div>
+                <div class="col-xs-6">
+                  <button type="submit" class="btn btn-md btn-primary">Отправить</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <script>
+        $(document).ready(function() {
+          $('#modalform-order').bootstrapValidator({
+              live: 'submitted',
+              feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+              },
+              fields: {
+                  'field-0': {
+                    validators:
+                    {
+                      notEmpty: {
+                        message: 'Пожалуйста, заполните это поле.'
+                      },
+    
+    
+    
+    
+    
+                      regexp: {
+                        message: 'Вы ввели неверное имя.',
+                        regexp: /^[a-zа-яёў-\s]+$/i,
+                      },
+    
+    
+    
+                      justincase: { }
+                    }
+                  },
+                  'field-1': {
+                    validators:
+                    {
+                      notEmpty: {
+                        message: 'Пожалуйста, заполните это поле.'
+                      },
+    
+                      emailAddress: {
+                        message: 'Вы ввели неверный адрес электронной почты.'
+                      },
+    
+    
+    
+    
+    
+    
+    
+                      justincase: { }
+                    }
+                  },
+                  'field-2': {
+                    validators:
+                    {
+                      notEmpty: {
+                        message: 'Пожалуйста, заполните это поле.'
+                      },
+    
+    
+    
+    
+    
+    
+    
+    
+                      justincase: { }
+                    }
+                  },
+              },
+              submitHandler: function(validator, form, submitButton)
+              {
+                $('#modalform-order button[type=submit]').attr('disabled', 'disabled');
+                validator.resetForm();
+    
+                var form = document.forms.namedItem("modalform-order");
+                var formData = new FormData(form);
+                formData.delete('order');
+    
+                console.log(formData);
+    
+                var req = new XMLHttpRequest();
+                req.open("POST", "/api/orders/", true);
+                req.onload = function(data) {
+                  if (req.status == 200) {
+                    alertForm({ id: 'order', form: $('#modalform-order'), name: 'order:Заказ:success', type: 'success', redirect: '', eval: "", msg: 'Ваше сообщение отправлено.', close: true }, JSON.parse(this.responseText));
+                  } else {
+                    alertForm({ id: 'order', form: $('#modalform-order'), name: 'order:Заказ:error', type: 'danger', msg: 'Не удалось отправить сообщение.' });
+                  }
+                };
+    
+                req.send(formData);
+    
+                // Блокируем форму на время отправки
+                $('#modalform-order input').attr('disabled', 'disabled');
+                $('#modalform-order textarea').attr('disabled', 'disabled');
+                $('#modalform-order button[type=submit]').attr('disabled', 'disabled');
+              }
+            });
+          });
+      </script>
+    </div>
+    <div class="modal fade" id="modal-call" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+      <div class="modal-dialog modal-md">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+             <h4 class="modal-title text-header" id="myModalLabel">Звонок</h4>
+
+          </div>
+          <div class="modal-body signup-form">
+            <form id="modalform-call" role="form">
+              <input type="hidden" name="suid" value="c04022c4294ae55f">
+              <input type="hidden" name="form" value="call">
+              <div class="form-group">
+                <label for="field-0">Имя</label>
+                <input id="field-0" name="field-0" type="text" class="form-control"
+                placeholder="Фамилия и имя" required>
+              </div>
+              <div class="form-group">
+                <label for="field-1">Номер телефона</label>
+                <input id="field-1" name="field-1" type="text" class="form-control"
+                placeholder="+375 XX YYY-YY-YY" required>
+              </div>
+              <div class="form-group">
+                <label for="field-2">Информация</label>
+                <input id="field-2" name="field-2" type="text" class="form-control"
+                placeholder="Комментарий">
+              </div>
+              <!-- Добавляем защиту от ботов -->
+              <div style="position: absolute; left: -6000px;" aria-hidden="true">
+                <input type="text" name="call" tabindex="-1" value="">
+              </div>
+              <div class="modal-footer">
+                <div class="col-xs-6">
+                  <button type="button" class="btn btn-md pull-left btn-default" data-dismiss="modal">Отмена</button>
+                </div>
+                <div class="col-xs-6">
+                  <button type="submit" class="btn btn-md btn-primary">Отправить</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <script>
+        $(document).ready(function() {
+          $('#modalform-call').bootstrapValidator({
+              live: 'submitted',
+              feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+              },
+              fields: {
+                  'field-0': {
+                    validators:
+                    {
+                      notEmpty: {
+                        message: 'Пожалуйста, заполните это поле.'
+                      },
+    
+    
+    
+    
+    
+                      regexp: {
+                        message: 'Вы ввели неверное имя.',
+                        regexp: /^[a-zа-яёў-\s]+$/i,
+                      },
+    
+    
+    
+                      justincase: { }
+                    }
+                  },
+                  'field-1': {
+                    validators:
+                    {
+                      notEmpty: {
+                        message: 'Пожалуйста, заполните это поле.'
+                      },
+    
+    
+                      regexp: {
+                        message: 'Вы ввели неверный телефонный номер.',
+                        regexp: /^([+])?([0-9()-\s]+)$/i
+                      },
+    
+    
+    
+    
+    
+    
+                      justincase: { }
+                    }
+                  },
+                  'field-2': {
+                    validators:
+                    {
+    
+    
+    
+    
+    
+    
+    
+    
+                      justincase: { }
+                    }
+                  },
+              },
+              submitHandler: function(validator, form, submitButton)
+              {
+                $('#modalform-call button[type=submit]').attr('disabled', 'disabled');
+                validator.resetForm();
+    
+                var form = document.forms.namedItem("modalform-call");
+                var formData = new FormData(form);
+                formData.delete('order');
+    
+                console.log(formData);
+    
+                var req = new XMLHttpRequest();
+                req.open("POST", "/api/orders/", true);
+                req.onload = function(data) {
+                  if (req.status == 200) {
+                    alertForm({ id: 'call', form: $('#modalform-call'), name: 'order:Звонок:success', type: 'success', redirect: '', eval: "", msg: 'Ваше сообщение отправлено.', close: true }, JSON.parse(this.responseText));
+                  } else {
+                    alertForm({ id: 'call', form: $('#modalform-call'), name: 'order:Звонок:error', type: 'danger', msg: 'Не удалось отправить сообщение.' });
+                  }
+                };
+    
+                req.send(formData);
+    
+                // Блокируем форму на время отправки
+                $('#modalform-call input').attr('disabled', 'disabled');
+                $('#modalform-call textarea').attr('disabled', 'disabled');
+                $('#modalform-call button[type=submit]').attr('disabled', 'disabled');
+              }
+            });
+          });
+      </script>
+    </div>
+    <!-- Запускаем библиотеки в работу -->
+    <script>
+      (function ($, d) { $.each(readyQ, function (i, f) { $(f) }); $.each(bindReadyQ, function (i, f) { $(d).bind("ready", f) }) })(jQuery, document);
+  
+      function htmlDecode(input){
+        var e = document.createElement('div');
+        e.innerHTML = input;
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+      }
+  
+      function eventForm(event) {
+        // Для старых настроек нам нужно удачный заказ выстрелить в старом формате
+        const [eventType, formName, eventResult]= event.name.split(':');
+        if (eventType === 'order' && eventResult === 'success') {
+          const eventCopy = $.extend(true, {}, event); // Тут важно сделать копию без ссылки
+          eventCopy.name = 'form:'+formName+':success';
+          eventForm(eventCopy);
+        }
+  
+        // Оповещаем подключенные системы аналитики о заказе
+        try {
+              _paq.push(['trackEvent', 'order', 'submit', alert.name]);      } catch (e) {}
+  
+        // Есть специальный код для исполнения при этом событии
+        if (eventType !== 'form' && event.eval && event.eval !== '') {
+          eval(htmlDecode(event.eval));
+        }
+      }
+  
+      function alertForm(alert, result) {
+        var div = $('<div class="alert alert-' + alert.type + ' text-center" style="display: none;">' + alert.msg + '</div>');
+        alert.form.prepend(div);
+  
+        // Выстреливаем нужные события
+        eventForm(alert);
+  
+        div.slideDown(400, function() {
+          // Если есть перенаправление, то делаем его с небольшой задержкной
+          if (alert.redirect) {
+            setTimeout(function(){ window.location.href = alert.redirect; }, 500);
+          }
+        }).delay(3000).slideUp(400, function () {
+          // Разблокируем форму
+          alert.form.find('input').removeAttr('disabled');
+          alert.form.find('textarea').removeAttr('disabled');
+          alert.form.find('button[type=submit]').removeAttr('disabled');
+  
+          // Если всё прошло хорошо то и очищаем её
+          if (alert.type == 'success') {
+            // Если это было модальное окно и его нужно закрыть
+            if (alert.close) alert.form.closest('.modal').modal('hide');
+  
+            alert.form.find('input[type="text"]').val('');
+            alert.form.find('input[type="file"]').val('');
+            alert.form.find('textarea').val('');
+  
+            // Если пользователь хочет оплатить заказ, а мы не против
+            if (result.pay) {
+              setTimeout(function (argument) {
+                $('input[name="order"]').val(result.order);
+                $('#payment-' + alert.id).modal({ backdrop: 'static', keyboard: false });
+              }.bind(this), 500);
+            }
+          }
+          div.remove();
+        });
+      }
+  
+      $(document).ready(function () {
+        if ( $('.navbar').hasClass('navbar-transparent') ) { var headerFlag = false; $(window).scroll(function() { var scroll = $(window).scrollTop(); if (scroll >= 100 && !headerFlag) { $(".navbar").addClass("navbar-scrolled"); headerFlag = true; } if (scroll < 100 && headerFlag) { $(".navbar").removeClass("navbar-scrolled"); headerFlag = false; } }); }
+        
+        
+        var offset = $('.navbar').hasClass('navbar-fixed-top') ? ($('.navbar').hasClass('navbar-large') ? -100 : -50) : 0; var prefix = /^#smooth/; if (prefix.test(location.hash)) { $.smoothScroll({scrollTarget: '#' + location.hash.replace(prefix, ''), 'offset': offset}); } $('a:not([href*="#smooth"])').smoothScroll({ 'offset': offset });
+        
+        window.viewportUnitsBuggyfill.init();
+        
+        $('.jarallax').jarallax({disableParallax: /iPad|iPhone|iPod|Android/ });
+      });
+    </script>
+  </body>
+
+</html>

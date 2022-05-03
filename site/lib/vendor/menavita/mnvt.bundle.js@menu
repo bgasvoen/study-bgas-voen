@@ -1,0 +1,536 @@
+var mnvt = (function ($, window, document) {
+  "use strict";
+
+  var mnvt = {}, components = { documentReady: [], documentReadyDeferred: [], windowLoad: [], windowLoadDeferred: [] };
+
+  mnvt.status = { documentReadyRan: false, windowLoadPending: false };
+
+  $(document).ready(documentReady);
+  $(window).on("load", windowLoad);
+
+  function documentReady(context) {
+
+    context = typeof context === typeof undefined ? $ : context;
+    components.documentReady.concat(components.documentReadyDeferred).forEach(function (component) {
+      component(context);
+    });
+    mnvt.status.documentReadyRan = true;
+    if (mnvt.status.windowLoadPending) {
+      windowLoad(mnvt.setContext());
+    }
+  }
+
+  function windowLoad(context) {
+    if (mnvt.status.documentReadyRan) {
+      mnvt.status.windowLoadPending = false;
+      context = typeof context === "object" ? $ : context;
+      components.windowLoad.concat(components.windowLoadDeferred).forEach(function (component) {
+        component(context);
+      });
+    } else {
+      mnvt.status.windowLoadPending = true;
+    }
+  }
+
+  mnvt.setContext = function (contextSelector) {
+    var context = $;
+    if (typeof contextSelector !== typeof undefined) {
+      return function (selector) {
+        return $(contextSelector).find(selector);
+      };
+    }
+    return context;
+  };
+
+  mnvt.components = components;
+  mnvt.documentReady = documentReady;
+  mnvt.windowLoad = windowLoad;
+
+  return mnvt;
+}(jQuery, window, document));
+
+//////////////// Cookies
+mnvt = (function (mnvt, $, window, document) {
+  "use strict";
+
+  mnvt.cookies = {
+
+    getItem: function (sKey) {
+      if (!sKey) { return null; }
+      return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
+    },
+    setItem: function (sKey, sValue, vEnd, sPath, sDomain, bSecure) {
+      console.log('setItem', sKey, sValue);
+      if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) { return false; }
+      var sExpires = "";
+      if (vEnd) {
+        switch (vEnd.constructor) {
+          case Number:
+            sExpires = vEnd === Infinity ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT" : "; max-age=" + vEnd;
+            break;
+          case String:
+            sExpires = "; expires=" + vEnd;
+            break;
+          case Date:
+            sExpires = "; expires=" + vEnd.toUTCString();
+            break;
+        }
+      }
+      document.cookie = encodeURIComponent(sKey) + "=" + encodeURIComponent(sValue) + sExpires + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "") + (bSecure ? "; secure" : "");
+      return true;
+    },
+    removeItem: function (sKey, sPath, sDomain) {
+      if (!this.hasItem(sKey)) { return false; }
+      document.cookie = encodeURIComponent(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT" + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "");
+      return true;
+    },
+    hasItem: function (sKey) {
+      if (!sKey) { return false; }
+      return (new RegExp("(?:^|;\\s*)" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=")).test(document.cookie);
+    },
+    keys: function () {
+      var aKeys = document.cookie.replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g, "").split(/\s*(?:\=[^;]*)?;\s*/);
+      for (var nLen = aKeys.length, nIdx = 0; nIdx < nLen; nIdx++) { aKeys[nIdx] = decodeURIComponent(aKeys[nIdx]); }
+      return aKeys;
+    }
+  };
+
+  return mnvt;
+
+}(mnvt, jQuery, window, document));
+
+//////////////// Storage
+// Можно в будущем переехать на store.js для повышения надежности и охвата браузеров
+mnvt = (function (mnvt, $, window, document) {
+  "use strict";
+
+  mnvt.storage = {
+    getItem: function (sKey) {
+      if (!sKey) { return null; }
+      return JSON.parse(localStorage.getItem(sKey));
+    },
+    setItem: function (sKey, sValue) {
+      if (!sKey || !sValue) { return null; }
+      localStorage.setItem(sKey, JSON.stringify(sValue));
+      return true;
+    },
+    removeItem: function (sKey, sPath, sDomain) {
+      if (!this.hasItem(sKey)) { return false; }
+      localStorage.removeItem(sKey);
+      return true;
+    },
+    hasItem: function (sKey) {
+      if (!sKey) { return false; }
+      return localStorage.getItem(sKey) ? true : false;
+    },
+    keys: function () {
+      return Object.keys(localStorage);
+    }
+  };
+
+  return mnvt;
+
+}(mnvt, jQuery, window, document));
+
+//////////////// Cart
+mnvt = (function (mnvt, $, window, document) {
+  "use strict";
+
+  mnvt.cart = {
+
+    createCart: function () {
+      // Дадаем пусты аб'ект у наша сховішча
+      mnvt.storage.setItem('mnvt.cart', { id: Date.now(), items: {}, actions: [] });
+    },
+    showCart: function () {
+      $('#modal-cart').modal();
+    },
+    addItem: function (item, silent) {
+      // Атрымліваем наш кошык
+      var cart = mnvt.storage.getItem('mnvt.cart');
+      // Пытаемся найти такой товар в корзине
+      var foundItem = Object.values(cart.items).filter(function(i) { return i.id === item.id; }).pop();
+      // Пытаемся найти счетчик количества товаров
+      var quantity = Math.round($('#' + item.id + '-quantity').val()) || 1;
+
+
+      // Если такой товар есть в корзине
+      // и у товара нет модификаций
+      if (foundItem && foundItem.vars.length === 1) {
+        console.log('foundItem', foundItem);
+        // Увеличиваем количество товаров
+        cart.items[foundItem.uid].quantity += quantity;
+        $('#' + foundItem.uid + '-quantity').val(cart.items[foundItem.uid].quantity);
+        console.log('cart', cart);
+        mnvt.storage.setItem('mnvt.cart', cart);
+        // Пересчитываем цены
+        mnvt.cart.recalcCart();
+      }
+      // Если товара нет, то добавляем
+      else {
+        item.uid = Date.now();
+
+        item.quantity = quantity;
+        cart.items[item.uid] = item;
+        mnvt.storage.setItem('mnvt.cart', cart);
+        // Пересобираем форму
+        mnvt.cart.rebuildCart();
+      }
+
+      // Показываем окно с корзиной
+      if (!silent) $('#modal-cart').modal();
+
+      // TODO: Когда будем добавлять отслеживание корзин тут нужно добавить XHR-запрос
+    },
+    // Options — это блок с параметрами на странице товара
+    changeOptions: function(id, delta) {
+      var quantity = Math.round($('#' + id + '-quantity').val()) || 0;
+      quantity += delta;
+      if (quantity < 1) quantity = 1;
+
+      $('#' + id + '-quantity').val(quantity);
+    },
+    updateOptions: function(id) {
+      var quantity = Math.round($('#' + id + '-quantity').val()) || 1;
+      $('#' + id + '-quantity').val(quantity);
+    },
+    changeCount: function(id, delta) {
+      // Атрымліваем наш кошык
+      var cart = mnvt.storage.getItem('mnvt.cart');
+
+      // Если такой товар есть в корзине
+      if (cart.items[id] != null) {
+        var quantity = Math.round($('#' + id + '-quantity').val());
+        quantity += delta;
+        if (quantity < 1) quantity = 1;
+        cart.items[id].quantity = quantity;
+
+        mnvt.storage.setItem('mnvt.cart', cart);
+        // Чтобы не перестаривать форму просто изменяем количество нужного товара
+        $('#' + id + '-quantity').val(cart.items[id].quantity);
+        console.log(cart, '#' + id + '-quantity', $('#' + id + '-quantity'));
+        // Пересобираем форму
+        mnvt.cart.recalcCart();
+      }
+    },
+    // Взывается после обновления количества
+    // устанавливает данные из поля ввода в модель
+    updateCount: function() {
+      // Атрымліваем наш кошык
+      var cart = mnvt.storage.getItem('mnvt.cart');
+
+      Object.keys(cart.items).forEach(function (id) {
+        if (cart.items[id].variants && !cart.items[id].hasOwnProperty('variant')) return;
+
+        var quantity = Math.round($('#' + id + '-quantity').val()) || 0;
+        if (quantity < 1) quantity = 0;
+        cart.items[id].quantity = quantity;
+
+        // Обновляем форму на всякий случай
+        $('#' + id + '-quantity').val(cart.items[id].quantity);
+      });
+
+      mnvt.storage.setItem('mnvt.cart', cart);
+      // Пересобираем форму
+      mnvt.cart.recalcCart();
+    },
+    changeVariant: function (id) {
+      // Атрымліваем наш кошык
+      var cart = mnvt.storage.getItem('mnvt.cart');
+
+      // Если такой товар есть в корзине
+      if (cart.items[id] != null) {
+        var newVariant = $('select[id="'+id+'-variant"]').val();
+        cart.items[id].variant = newVariant !== 'notselected' ? parseInt(newVariant) : 'notselected';
+        console.log(cart.items[id].variant);
+        mnvt.storage.setItem('mnvt.cart', cart);
+        // Пересобираем форму
+        mnvt.cart.rebuildCart();
+      }
+
+      // TODO: Когда будем добавлять отслеживание корзин тут нужно добавить XHR-запрос
+    },
+    removeItem: function (id, silent) {
+      // Атрымліваем наш кошык
+      var cart = mnvt.storage.getItem('mnvt.cart');
+
+      // Если такой товар есть в корзине
+      if (cart.items[id] != null) {
+        delete cart.items[id];
+        mnvt.storage.setItem('mnvt.cart', cart);
+        // Пересобираем форму
+        mnvt.cart.rebuildCart();
+      }
+
+      // TODO: Когда будем добавлять отслеживание корзин тут нужно добавить XHR-запрос
+    },
+    rebuildCart: function (sKey) {
+      // Атрымліваем наш кошык
+      var cart = mnvt.storage.getItem('mnvt.cart');
+      console.log('rebuildCart', cart);
+
+      $("#cart-list").empty();
+
+      Object.keys(cart.items).forEach(function (id) {
+        var tmpl = $('#cartitem').clone();
+        var item = cart.items[id];
+        var vars = item.vars[item.variant && item.variant !== 'notselected' ? item.variant : 0];
+
+        // Если у товара должны нет нужной модификации,
+        // значит он плохо настроен и нам нужно его удалить
+        if (!vars) return mnvt.cart.removeItem(id, true);
+
+        // Превращаем картинку в квадратную версию её самой
+        var img = item.images[0];
+        tmpl.find('img').attr("src", img.substr(0, img.length - 4) + '-xs.' + img.substr(-3));
+        tmpl.find('input[name="quantity"]').attr("value", item.quantity || 0);
+
+        tmpl.find('h5').text(item.name);
+        tmpl.find('#price').text(vars.price.actual);
+
+        // Добавляем все варианты на выбор
+        if (item.variants) {
+          console.log(item)
+          if ( !item.hasOwnProperty('variant') || item.variant === 'notselected') {
+            tmpl.find('select[name="variant"]').append($('<option/>', {
+              value: 'notselected',
+              text : 'Выберите подходящий вариант',
+              disabled: true,
+              selected: true
+            }));
+
+            tmpl.find('.quantity-calculation').hide();
+          }
+
+          item.vars.forEach(function(variant, index) {
+            console.log('each', variant, index);
+            tmpl.find('select[name="variant"]').append($('<option/>', {
+              value: index,
+              selected: item.variant == index ? true : false,
+              text: variant.opts.join(", ") + " — " + variant.price.actual + " руб.",
+              disabled: variant.status === 0,
+            }));
+          });
+        } else {
+          tmpl.find('select[name="variant"]').hide();
+        }
+
+        var html = tmpl.html().replace(/{{uid}}/g, item.uid);
+        $("#cart-list").append(html);
+      });
+
+      mnvt.cart.recalcCart();
+    },
+    recalcCart: function () {
+      // Атрымліваем наш кошык
+      var cart = mnvt.storage.getItem('mnvt.cart');
+      var total = 0;
+
+      Object.keys(cart.items).forEach(function (id) {
+        var item = cart.items[id];
+
+        if (item.variants && !item.hasOwnProperty('variant')) return;
+
+        item.quantity = Math.round(item.quantity);
+        if (item.quantity < 1) item.quantity = 0;
+
+        total += item.vars[item.variant || 0].price.actual * item.quantity;
+      });
+
+      // Тут магия, чтобы округлить цену до двух знаков после запятой
+      total = Number(total.toFixed(2));
+
+      // Немного магии, чтобы получить красивую цену
+      var ruble = Math.abs(Math.trunc(total));
+      var kopeyka = Math.round((total - ruble).toFixed(2) * 100);
+      if (kopeyka < 10) kopeyka = '0'+ kopeyka;
+      if (kopeyka == 0) kopeyka = '—';
+      var totalText = ruble + '.' + kopeyka;
+
+      $('#cart--total').text(totalText);
+      cart.total = total;
+      mnvt.storage.setItem('mnvt.cart', cart);
+    },
+    clearCart: function () {
+      mnvt.storage.removeItem('mnvt.cart');
+      mnvt.cart.createCart();
+    },
+    recalcDelivery: function () {
+      // Атрымліваем наш кошык
+      var cart = mnvt.storage.getItem('mnvt.cart');
+
+      $(".delivery-list-group .list-group-item").each(function (index) {
+        if (cart.total < $(this).data('price-min')) $(this).addClass('disabled');
+        else $(this).removeClass('disabled');
+      });
+    },
+    setDelivery: function (deliveryId, formId) {
+
+      // Получаем данные о доставке
+      var delivery = {
+        id: deliveryId,
+        text: $('#delivery--' + deliveryId + ' h5').text(),
+        description: $('#delivery--' + deliveryId + ' p').text(),
+        price: {
+          actual: $('#delivery--' + deliveryId).data('price-actual'),
+          freeat: $('#delivery--' + deliveryId).data('price-freeat'),
+          min: $('#delivery--' + deliveryId).data('price-min')
+        }
+      };
+
+      // Обновляем цену товаров в корзине
+      // чтобы добавив туда доставку не получить там цену с предыдущей доставкой
+      mnvt.cart.recalcCart();
+
+      // Атрымліваем наш кошык
+      var cart = mnvt.storage.getItem('mnvt.cart');
+
+      // Удаляем товары в которых так и не выбрали модификацию
+      Object.keys(cart.items).forEach(function(itemid) {
+        var item = cart.items[itemid];
+        if (item.variants && !item.hasOwnProperty('variant')) delete cart.items[itemid];
+      });
+
+      // Проверяем можно ли нам использовать такой способ доставки
+      if (delivery.price.min != "" && cart.total < delivery.price.min) return;
+
+      // Сохраняем информацию о доставке
+      cart.delivery = delivery;
+      // Если превысили сумму бесплатной доставки
+      if (delivery.price.freeat != "" && cart.total >= delivery.price.freeat) cart.delivery.price.actual = 0;
+      if (delivery.price.actual == "") cart.delivery.price.actual = 0;
+      cart.total += Number(cart.delivery.price.actual);
+      mnvt.storage.setItem('mnvt.cart', cart);
+
+      var html = document.createElement('div');
+      $(html).addClass('cart-preview');
+      $('<div class="row"><div class="col-xs-12"><b>Ваш заказ</b></div></div>').appendTo(html);
+      Object.keys(cart.items).forEach(function (id) {
+        var item = cart.items[id];
+        var vars = item.vars[item.variant || 0];
+        $('<div class="row"><div class="col-xs-6">' +
+          item.name + (item.variants ? ' (' + vars.opts.join(', ')+ ')' : '') +
+          (vars.sku ? '<br/><span class="text-muted sku">Артикул: ' + vars.sku+ '</span>' : '') +
+          '</div><div class="col-xs-6 text-right">' + item.quantity + ' <span class="text-muted">x</span> ' + vars.price.actual + ' <span class="text-muted">=</span> ' + (item.quantity * vars.price.actual).toFixed(2) + ' <span class="text-muted">руб.</span></div></div>').appendTo(html);
+      });
+      $('<div class="row"><div class="col-xs-12"><hr></div></div>').appendTo(html);
+      $('<div class="row"><div class="col-xs-6">' + delivery.text + '</div><div class="col-xs-6 text-right">' + cart.delivery.price.actual + ' <span class="text-muted">руб.</span></div></div>').appendTo(html);
+      $('<div class="row"><div class="col-xs-12"><hr></div></div>').appendTo(html);
+      $('<div class="row"><div class="col-xs-6">Итого:</div><div class="col-xs-6 text-right">' + (cart.total).toFixed(2) + ' <span class="text-muted">руб.</span></div></div>').appendTo(html);
+      $('#modal-' + formId + ' .modal-body').prepend(html);
+      $('.cart-preview').wrap('<div class="panel panel-default cart-preview-wrapper"> <div class="panel-body"></div></div>');
+
+      // Прикрепляем корзину скрытым полем
+      $('<input>').attr({ type: 'hidden', id: 'cart', name: 'cart', value: JSON.stringify(cart) }).appendTo('#modalform-' + formId);
+
+      $('#modal-delivery').on('hide.bs.modal', function () { setTimeout(function () { $('body').addClass('modal-open'); }, 1000); });
+      $('#modal-delivery').modal('hide');
+
+      $('#modal-' + formId).on('hide.bs.modal', function () {
+        $('#modal-' + formId + ' .cart-preview-wrapper').remove();
+        $('#modal-' + formId + ' input[name="cart"]').remove();
+      });
+      $('#modal-' + formId).modal();
+    }
+  };
+
+  return mnvt;
+
+}(mnvt, jQuery, window, document));
+
+/// Helpers
+/**
+ * @param imagePath
+ * @param size
+ * @returns {string|string|*|string}
+ */
+function getImageSize(imagePath, size = null) {
+  if (!size) return imagePath;
+  const pathArray = imagePath.split('.');
+
+  return `${pathArray[0]}-${size}.${pathArray[1]}`;
+}
+
+
+//////////////// Service
+mnvt = (function (mnvt, $, window, document) {
+  "use strict";
+
+  mnvt.service = {
+
+    createService: function () {
+      // Дадаем пусты аб'ект у наша сховішча
+      mnvt.storage.setItem('mnvt.service', { id: Date.now(), item: {}, actions: [] });
+    },
+    addItem: function (item, formId) {
+      // Если мы добавляем услугу, а корзины услуг нет
+      if (!mnvt.storage.hasItem('mnvt.service')) mnvt.service.createService();
+
+      // Атрымліваем наш кошык
+      var service = mnvt.storage.getItem('mnvt.service');
+      item.uid = Date.now();
+      // Удаляем теги из текстовых блоков
+      // чтобы не хранить у себя верстку
+      service.item = {
+        image: item.image,
+        title: $.trim(item.title),
+        text: $.trim($('<p>'+item.text+'</p>').text()),
+        price: $.trim($('<p>'+ item.price || '' + '</p>').text())
+      };
+      mnvt.storage.setItem('mnvt.service', service);
+
+      mnvt.service.rebuildService(formId);
+      // Показываем форму
+      $('#modal-' + formId).modal();
+      // Добавляем очистку сервиса при закрытии модального окна
+      $('#modal-' + formId).on('hidden.bs.modal', function (e) {
+        mnvt.service.clearService();
+        $('#modalform-' + formId + ' input[name="service"]').remove();
+        $('#modal-' + formId + ' .modal-body .service-preview-wrapper').remove();
+      });
+    },
+    rebuildService: function (formId) {
+      // Атрымліваем наш кошык
+      var service = mnvt.storage.getItem('mnvt.service');
+      $('#modal-' + formId + ' .modal-body .service-preview-wrapper').remove();
+
+      var html = document.createElement('div');
+      $(html).addClass('service-preview');
+      $('<div class="row"><div class="col-xs-3">' +
+        (service.item.image.indexOf('svg xmlns') !== -1 ? service.item.image : '<img src="' + getImageSize(service.item.image, 'xs') + '">' ) +
+        '</div><div class="col-xs-9"><div class="service-title">' + service.item.title + '</div><div class="service-text text-muted">' + service.item.text + '</div><div class="service-price">' + service.item.price || '' + '</div></div></div>').appendTo(html);
+      $('#modal-' + formId + ' .modal-body').prepend(html);
+      $('.service-preview').wrap('<div class="panel panel-default service-preview-wrapper"> <div class="panel-body"></div></div>');
+
+      // Прикрепляем корзину скрытым полем
+      $('<input>').attr({ type: 'hidden', id: 'service', name: 'service', value: JSON.stringify(service) }).appendTo('#modalform-' + formId);
+    },
+    clearService: function () {
+      mnvt.storage.removeItem('mnvt.service');
+      mnvt.service.createService();
+    },
+  };
+
+  return mnvt;
+
+}(mnvt, jQuery, window, document));
+
+//////////////// Main menu
+mnvt = (function (mnvt, $, window) {
+  "use strict";
+
+  const targetClassName = 'child-menu__open--js';
+
+  $(window).width() < 767 && $('.' + targetClassName).on('click', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    $(e.target).closest('.dropdown').toggleClass('open');
+  });
+
+  $(window).width() > 768 && $('.' + targetClassName).closest('.dropdown').hover(function () {
+    $(this).toggleClass('open');
+  });
+
+  return mnvt;
+}(mnvt, jQuery, window));
